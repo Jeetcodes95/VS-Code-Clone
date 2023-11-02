@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jeet Vs Code</title>
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@2.2.0/fonts/remixicon.css" rel="stylesheet">
+  <link rel="stylesheet" href="../stylesheets/style.css">
+
+
+</head>
+<body>
+    <div id="main">
+      <div id="left">
+        <h3>JEET VS CODE</h3>
+        <hr>
+        <div id="foldername">
+          <div class="fname">
+            <i class="ri-arrow-down-s-line"></i>
+            <h4><%= foldername %></h4>
+          </div>
+          <div id="iconsf">
+            <i class="ri-file-add-fill"></i>
+            <i class="ri-folder-add-fill"></i>
+            <i class="ri-restart-fill"></i>
+            <i class="ri-file-copy-fill"></i>
+          </div>
+        </div>
+        <div style="margin-top: 1px;" class="forms">
+          <form id="fileform" style="display: none; width: 94%;padding: 0 10px;" action="/createfile">
+            <input name="filename" placeholder="file name" style="width:88%;padding: 8px 12px;border: 1px solid #ebe8e8fb;border-radius: 5px;outline: none;background-color: #f3f0f0fb;" type="text">
+          </form>
+          <form id="folderform" style="display: none; width: 94%;padding: 0 10px;" action="/createfolder">
+            <input name="foldername" placeholder="folder name" style="width:88%;padding: 8px 12px;border: 1px solid #ebe8e8fb;border-radius: 5px;outline: none;background-color: #f3f0f0fb;" type="text">
+          </form>
+        </div>
+        <% files.forEach(function(val){ %>
+          <div id="files">
+            <div id="filename">
+              <% if(val.isFolder){ %>
+                <i class="ri-folder-fill"></i>
+             <% }else{%>
+              <i class="ri-file-code-line"></i>
+             <% } %>
+             <a href="/file/<%= val.name %>"><%= val.name %></a>
+            </div>
+              <div id="iconsfile">
+                <i class="ri-pencil-line"></i>
+                <a href="/delete/<%= val.name %>"><i class="ri-delete-bin-6-line"></i></a>
+            </div>
+          </div>
+         <% }); %>
+      </div>
+      <div id="right">
+        <form id="filetabs" action="/fileclose/<%= filename%>">
+        <div class="nav">
+          <div class="fopen">
+                <%= filename %>
+                <a href="/fileclose/<%= filename %>"><i class="ri-close-line"></i></a>
+              </div>
+            </div>
+          </form>
+        
+        <form id="file-editor" method="post" action="/save/<%= filename%>">
+          <textarea name="filedata" id="" cols="30" rows="10">
+            <%= data %>
+          </textarea>
+          <input type="submit" value="save" name="filename">
+        </form>
+      </div>
+    </div>
+    <script src="../javascripts/script.js"></script>
+</body>
+</html>
